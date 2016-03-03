@@ -1,19 +1,28 @@
 angular.module('ionic.example', ['ionic'])
 
     .controller('MapCtrl', function($scope, $ionicLoading, $compile) {
+      
+      
+      
       function initialize() {
         
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation
-          .getCurrentPosition(posOptions)
-          .then(function (position) {
-            var lat  = position.coords.latitude
-            var long = position.coords.longitude
-          }, function(err) {
-            // error
-          });
+        // navigator.geolocation.getCurrentPosition(function(pos) {
+        //   $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        //   $scope.loading.hide();
+        // }, function(error) {
+        //   alert('Unable to get location: ' + error.message);
+        // });
         
-        var myLatlng = new google.maps.LatLng(lat,long);
+          var myLatlng = function (navigator.geolocation.getCurrentPosition(function(pos) {
+          
+            var myLatlng = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+            //  var myLatlng = new google.maps.LatLng(14.5334183,120.9844835);
+            return myLatlng
+          
+          }, function(error) {
+            alert('Unable to get location: ' + error.message);
+          }));
+        
         
         var mapOptions = {
           center: myLatlng,
