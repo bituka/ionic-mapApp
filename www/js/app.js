@@ -2,27 +2,12 @@ angular.module('ionic.example', ['ionic'])
 
     .controller('MapCtrl', function($scope, $ionicLoading, $compile) {
       
-      
-      
       function initialize() {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            
+        var myLatlng = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
         
-        // navigator.geolocation.getCurrentPosition(function(pos) {
-        //   $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-        //   $scope.loading.hide();
-        // }, function(error) {
-        //   alert('Unable to get location: ' + error.message);
-        // });
-        
-          var myLatlng = function (navigator.geolocation.getCurrentPosition(function(pos) {
-          
-            var myLatlng = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-            //  var myLatlng = new google.maps.LatLng(14.5334183,120.9844835);
-            return myLatlng
-          
-          }, function(error) {
-            alert('Unable to get location: ' + error.message);
-          }));
-        
+        console.log(myLatlng);
         
         var mapOptions = {
           center: myLatlng,
@@ -51,29 +36,36 @@ angular.module('ionic.example', ['ionic'])
         });
 
         $scope.map = map;
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-      
-      $scope.centerOnMe = function() {
-        if(!$scope.map) {
-          return;
-        }
-
-        $scope.loading = $ionicLoading.show({
-          content: 'Getting current location...',
-          showBackdrop: false
-        });
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          $scope.loading.hide();
         }, function(error) {
           alert('Unable to get location: ' + error.message);
         });
-      };
       
-      $scope.clickTest = function() {
-        alert('Example of infowindow with ng-click')
-      };
+      // console.log(a);
+        
+      }; 
+        
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+      // $scope.centerOnMe = function() {
+      //   if(!$scope.map) {
+      //     return;
+      //   }
+
+      //   $scope.loading = $ionicLoading.show({
+      //     content: 'Getting current location...',
+      //     showBackdrop: false
+      //   });
+
+      //   navigator.geolocation.getCurrentPosition(function(pos) {
+      //     $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      //     $scope.loading.hide();
+      //   }, function(error) {
+      //     alert('Unable to get location: ' + error.message);
+      //   });
+      // };
+      
+      // $scope.clickTest = function() {
+      //   alert('Example of infowindow with ng-click')
+      // };
       
     });
